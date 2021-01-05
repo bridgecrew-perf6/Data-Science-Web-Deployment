@@ -36,9 +36,24 @@ Deployment is needed that anyone can see the web app work. For this reason an ex
   Those libraries are installed in the virtuasl environment instead of the regular Python environment.
 
 4. Install the heroku command line tools
+
+  Ubuntu
   ```
   curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  ```
+  
+  Mac OS
+  ```
+  curl https://cli-assets.heroku.com/install.sh | sh
+  ```
+
+  Other OS
+  ```
   https://devcenter.heroku.com/articles/heroku-cli#standalone-installation 
+  ```
+  
+  Check the installation
+  ```
   heroku —-version 
   ```
 
@@ -70,6 +85,11 @@ Deployment is needed that anyone can see the web app work. For this reason an ex
   web gunicorn worldbank:app
   ```
 
+  If you stored ```worldbank.py``` in a folder like ```app``` then use
+  ```
+  web gunicorn cd app && worldbank:app
+  ```
+
   Tells Heroku, when starting the web app call the gunicorn library and runt the wordbank app.
 
 10. Next, create a requirements file, which lists all of the Python library that your app depends on
@@ -77,9 +97,8 @@ Deployment is needed that anyone can see the web app work. For this reason an ex
   pip freeze > requirements.txt
   ```
 
-11. Initialize a git repository and make a commit
+11. Initialize a git repository in the ```web_app``` folder and make a commit
   ```
-  cd web_app
   git init
   git add .
   git commit -m ‘first commit’
