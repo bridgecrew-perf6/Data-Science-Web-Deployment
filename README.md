@@ -15,81 +15,100 @@ Deployment is needed that anyone can see the web app work. For this reason an ex
 
 #### Working with Heroku
 
-1. Create a new environment
+1. Create a new folder and put all files needed for the web app into this folder, e.g.
   ```
-  conda update python
-  python3 -m venv worldbankvenv
-  source worldbankenv/bin/activate
+  mkdir web_app
+  mv -t web_app data worldbankapp wrangling_scripts worldbank.py
   ```
 
-2. Pip install libraries that are needed for the web app
+2. Create a new environment
+  ```
+  conda update python 
+  python3 -m venv worldbankvenv 
+  source worldbankenv/bin/activate 
+  ```
+  Now besides the folder ```web_app``` there is a folder ```worldbankvenv``` with a Python installation inside (folders like bin, include, lib, lib64, etc.).
+
+3. Pip install libraries that are needed for the web app
   ```
   pip install flask pandas plotly gunicorn
   ```
+  Those libraries are installed in the virtuasl environment instead of the regular Python environment.
 
-
-3. Install the heroku command line tools
+4. Install the heroku command line tools
   ```
   curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-  https://devcenter.heroku.com/articles/heroku-cli#standalone-installation
-  heroku —-version
+  https://devcenter.heroku.com/articles/heroku-cli#standalone-installation 
+  heroku —-version 
   ```
 
-4. Log into Heroku
+5. Log into Heroku
   - Go to Heroku web page
   - Create an account
   ```
   heroku login
   ```
 
-5. Heroku asks for (from the terminal)
+6. Heroku asks for (from the terminal)
   - account email address
   - password
+ 
 
-6. The next steps involved some housekeeping:
+7. The next steps involved some housekeeping:
   - remove ```app.run()``` from worldbank.py
   - type ```cd web_app``` into the terminal (be inside the folder with the web app code)
 
 
-7. Create a proc file
+8. Create a proc file
   ```
   touch Procfile
   ```
+  A proc file tells Heroku what to do when starting the web app.
 
-8. Then open the Procfile and type:
+9. Then open the Procfile and type:
   ```
   web gunicorn worldbank:app
   ```
 
-9. Next, create a requirements file, which lists all of the Python library that your app depends on
+  Tells Heroku, when starting the web app call the gunicorn library and runt the wordbank app.
+
+10. Next, create a requirements file, which lists all of the Python library that your app depends on
   ```
   pip freeze > requirements.txt
   ```
 
-10. Initialize a git repository and make a commit
+11. Initialize a git repository and make a commit
   ```
+  cd web_app
   git init
   git add .
   git commit -m ‘first commit’
   ```
+  
+  Eventually you have to add an email address and user name:
+  ```
+  git config user.email "something@example.com"
+  git config user.name "Andy"
+  ```
 
-11. Now, create a heroku app
+12. Now, create a heroku app
   ```
   heroku create my-app-name
   ```
-  The ```heroku create```command should create a git repo on Heroku and a web address for accessing the web app.
+  The ```heroku create``` command should create a git repo on Heroku and a web address for accessing the web app.
+  The name must be unique, e.g. 'dsnd-udacity-webapp'
 
-12. Check if the remote repo was added to your git repo with the following terminal command
+13. Check if the remote repo was added to your git repo with the following terminal command
   ```
   git remote -v
   ```
 
-13. Next, push the git repo to the remote heroku repo with this command
+14. Next, push the git repo to the remote heroku repo with this command
   ```
   git push heroku master
   ```
 
-14. Type the web app's address in the browser to see the results
+15. Type the web app's address in the browser to see the results
 
 
 ## Databases fot a web app
